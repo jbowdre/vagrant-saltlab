@@ -13,6 +13,7 @@ Vagrant.configure("2") do |config|
     salt.vm.provider :libvirt do |libvirt|
       libvirt.memory = 1024
     end
+    salt.vm.synced_folder 'srv', '/srv', type: 'rsync'
     salt.vm.provision "shell", inline: <<-SHELL
       apt-get update
       apt-get install curl vim -y
@@ -31,9 +32,15 @@ Vagrant.configure("2") do |config|
     minion01.vm.network "private_network", ip: "192.168.100.121"
     minion01.vm.provision "shell", inline: <<-SHELL
       apt-get update
-      apt-get install curl vim -y
+      apt-get install curl -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       sh bootstrap-salt.sh -A 192.168.100.120
+      cat << EOF > /etc/salt/minion.d/grains.conf
+grains:
+  roles:
+    - saltlab
+EOF
+      systemctl restart salt-minion
     SHELL
   end
   config.vm.define "minion02" do |minion02|
@@ -42,9 +49,15 @@ Vagrant.configure("2") do |config|
     minion02.vm.network "private_network", ip: "192.168.100.122"
     minion02.vm.provision "shell", inline: <<-SHELL
       apt-get update
-      apt-get install curl vim -y
+      apt-get install curl -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       sh bootstrap-salt.sh -A 192.168.100.120
+      cat << EOF > /etc/salt/minion.d/grains.conf
+grains:
+  roles:
+    - saltlab
+EOF
+      systemctl restart salt-minion
     SHELL
   end
   config.vm.define "minion03" do |minion03|
@@ -52,9 +65,14 @@ Vagrant.configure("2") do |config|
     minion03.vm.hostname = "minion03"
     minion03.vm.network "private_network", ip: "192.168.100.123"
     minion03.vm.provision "shell", inline: <<-SHELL
-      yum install vim -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       sh bootstrap-salt.sh -A 192.168.100.120 || sh bootstrap-salt.sh -A 192.168.100.120
+      cat << EOF > /etc/salt/minion.d/grains.conf
+grains:
+  roles:
+    - saltlab
+EOF
+      systemctl restart salt-minion
     SHELL
   end
   config.vm.define "minion04" do |minion04|
@@ -62,9 +80,15 @@ Vagrant.configure("2") do |config|
     minion04.vm.hostname = "minion04"
     minion04.vm.network "private_network", ip: "192.168.100.124"
     minion04.vm.provision "shell", inline: <<-SHELL
-      yum install vim -y
+      yum install -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       sh bootstrap-salt.sh -A 192.168.100.120
+      cat << EOF > /etc/salt/minion.d/grains.conf
+grains:
+  roles:
+    - saltlab
+EOF
+      systemctl restart salt-minion
     SHELL
   end
 end
