@@ -1,3 +1,3 @@
-# Vagrantfiles
+# vagrant-saltlab
 
-A (small) collection of Vagrantfiles I'm using for portable labs [on my Chromebook](https://www.virtuallypotato.com/create-vms-chromebook-hashicorp-vagrant/). These are all geared towards use with the [`vagrant-libvirt`](https://github.com/vagrant-libvirt/vagrant-libvirt) provider.
+Using Vagrant to run a portable [Salt](https://saltproject.io/) lab environment [on my Chromebook](https://www.virtuallypotato.com/create-vms-chromebook-hashicorp-vagrant/). The included Vagrantfile spawns a environment with a single Salt Master and four Salt Minions running on a few different common Linux distributions for testing and development.
