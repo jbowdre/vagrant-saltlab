@@ -56,6 +56,7 @@ EOF
 grains:
   roles:
     - saltlab
+    - web
 EOF
       systemctl restart salt-minion
     SHELL
@@ -99,6 +100,7 @@ EOF
 grains:
   roles:
     - saltlab
+    - web
 EOF
       systemctl restart salt-minion
     SHELL

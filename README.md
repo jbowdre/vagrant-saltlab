@@ -70,11 +70,7 @@ minion04:
     True
 ```
 
-And finally, as a treat, apply a [Salt state to install vim and my vimrc](srv/salt/vim/init.sls) on the minions with the `roles:saltlab` grain:
-```shell
-sudo salt -G 'roles:saltlab` state.apply vim
-```
-
-To blow it all away for a fresh start, just run `vagrant destroy -f`.
-
 Happy Salting!
+
+## Cleanup
+To blow it all away for a fresh start, just run `vagrant destroy -f`.
