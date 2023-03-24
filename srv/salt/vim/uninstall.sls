@@ -1,5 +1,5 @@
-vim:
-  pkg.installed:
+uninstall_vim:
+  pkg.removed:
     {% if grains['os_family'] == 'RedHat'%}
     - name: vim-enhanced
     {% else %}
@@ -7,9 +7,4 @@ vim:
     {% endif %}
 
 /etc/vimrc:
-  file.managed:
-    - source: salt://edit/vimrc
-    - mode: 644
-    - user: root
-    - group: root
-
+  file.absent

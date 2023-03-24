@@ -70,9 +70,9 @@ minion04:
     True
 ```
 
-And finally, as a treat, apply a [Salt state to install vim and my vimrc](srv/salt/edit/vim.sls) on the minions with the `roles:saltlab` grain:
+And finally, as a treat, apply a [Salt state to install vim and my vimrc](srv/salt/vim/init.sls) on the minions with the `roles:saltlab` grain:
 ```shell
-sudo salt -G 'roles:saltlab` state.apply edit.vim
+sudo salt -G 'roles:saltlab` state.apply vim
 ```
 
 Happy Salting!
