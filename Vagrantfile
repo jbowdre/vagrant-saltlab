@@ -5,7 +5,6 @@
 
 Vagrant.configure("2") do |config|
   config.nfs.verify_installed = false
-  config.vm.synced_folder '.', '/vagrant', type: 'rsync'
   config.vm.define "salt", primary: true do |salt|
     salt.vm.box = "peru/ubuntu-20.04-server-amd64"
     salt.vm.hostname = "salt"
