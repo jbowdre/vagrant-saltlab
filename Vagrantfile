@@ -64,6 +64,12 @@ EOF
     minion03.vm.hostname = "minion03"
     minion03.vm.network "private_network", ip: "192.168.100.123"
     minion03.vm.provision "shell", inline: <<-SHELL
+      echo -n "> Waiting for network..."
+      while ! host bootstrap.saltproject.io >/dev/null; do
+        echo -n "."
+        sleep 1
+      done
+      echo "Proceeding!"
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       sh bootstrap-salt.sh -A 192.168.100.120 || sh bootstrap-salt.sh -A 192.168.100.120
       cat << EOF > /etc/salt/minion.d/grains.conf
@@ -79,7 +85,12 @@ EOF
     minion04.vm.hostname = "minion04"
     minion04.vm.network "private_network", ip: "192.168.100.124"
     minion04.vm.provision "shell", inline: <<-SHELL
-      yum install -y
+      echo -n "> Waiting for network..."
+      while ! host bootstrap.saltproject.io >/dev/null; do
+        echo -n "."
+        sleep 1
+      done
+      echo "Proceeding!"
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       sh bootstrap-salt.sh -A 192.168.100.120
       cat << EOF > /etc/salt/minion.d/grains.conf
