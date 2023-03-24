@@ -75,4 +75,6 @@ And finally, as a treat, apply a [Salt state to install vim and my vimrc](srv/sa
 sudo salt -G 'roles:saltlab` state.apply vim
 ```
 
+To blow it all away for a fresh start, just run `vagrant destroy -f`.
+
 Happy Salting!
