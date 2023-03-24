@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
       apt-get update
       apt-get install curl vim -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -M -X
+      sh bootstrap-salt.sh -M -X -U
       sed -i 's|^#auto_accept:.*$|auto_accept: True|' /etc/salt/master
       systemctl start salt-master
       systemctl start salt-minion
@@ -33,7 +33,7 @@ Vagrant.configure("2") do |config|
       apt-get update
       apt-get install curl -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -A 192.168.100.120
+      sh bootstrap-salt.sh -A 192.168.100.120 -U
       cat << EOF > /etc/salt/minion.d/grains.conf
 grains:
   roles:
@@ -50,7 +50,7 @@ EOF
       apt-get update
       apt-get install curl -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -A 192.168.100.120
+      sh bootstrap-salt.sh -A 192.168.100.120 -U
       cat << EOF > /etc/salt/minion.d/grains.conf
 grains:
   roles:
@@ -71,7 +71,8 @@ EOF
       done
       echo "Proceeding!"
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -A 192.168.100.120 || sh bootstrap-salt.sh -A 192.168.100.120
+      # workaround for EL > 9 (https://github.com/saltstack/salt-bootstrap/issues/1903)
+      sh bootstrap-salt.sh -A 192.168.100.120 -U -P -x python3 onedir
       cat << EOF > /etc/salt/minion.d/grains.conf
 grains:
   roles:
@@ -92,7 +93,7 @@ EOF
       done
       echo "Proceeding!"
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -A 192.168.100.120
+      sh bootstrap-salt.sh -A 192.168.100.120 -U
       cat << EOF > /etc/salt/minion.d/grains.conf
 grains:
   roles:
