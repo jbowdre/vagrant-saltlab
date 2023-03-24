@@ -1,9 +1,9 @@
 vim:
-  pkg.installed: []
+  pkg.installed
 
 /etc/vimrc:
   file.managed:
-    - source: salt://vimrc
+    - source: salt://edit/vimrc
     - mode: 644
     - user: root
     - group: root
