@@ -1,5 +1,10 @@
 vim:
-  pkg.installed
+  pkg.installed:
+    {% if grains['os_family'] == 'RedHat'%}
+    - name: vim-enhanced
+    {% else %}
+    - name: vim
+    {% endif %}
 
 /etc/vimrc:
   file.managed:
