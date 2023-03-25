@@ -75,6 +75,7 @@ EOF
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       # workaround for EL > 9 (https://github.com/saltstack/salt-bootstrap/issues/1903)
       sh bootstrap-salt.sh -A 192.168.100.120 -U -P -x python3 onedir
+      systemctl enable salt-minion
       cat << EOF > /etc/salt/minion.d/grains.conf
 grains:
   roles:
