@@ -3,7 +3,7 @@ base:
     - vim
   'roles:saltlab':
     - match: grain
-    - cowsay
+    - users
   'roles:web':
     - match: grain
-    - nginx
+    - apache
