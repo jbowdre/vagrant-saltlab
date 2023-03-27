@@ -6,4 +6,4 @@ base:
     - users
   'roles:web':
     - match: grain
-    - apache
+    - webserver
