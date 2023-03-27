@@ -19,7 +19,18 @@ Vagrant.configure("2") do |config|
       apt-get install curl vim -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       sh bootstrap-salt.sh -M -X -U
-      sed -i 's|^#auto_accept:.*$|auto_accept: True|' /etc/salt/master
+      cat << EOF > /etc/salt/master.d/lab.conf
+auto_accept: True
+file_roots:
+  base:
+    - /srv/salt
+pillar_roots:
+  base:
+    - /srv/pillar
+reactor:
+  - 'salt/minion/*/start':
+    - /srv/reactor/sync_grains.sls
+EOF
       systemctl start salt-master
       systemctl start salt-minion
       sleep 5
