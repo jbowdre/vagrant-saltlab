@@ -13,22 +13,13 @@ install_html_file:
     - require:
       - pkg: {{ pillar['pkgs']['apache'] }}
 
-configure_firewall_service:
+configure_firewall:
   pkg.installed:
     - name: firewalld
-  firewalld.service:
-    - require:
-      - pkg: firewalld
-    - name: webserver
-    - ports:
-      - 80/tcp
-      - 443/tcp
-
-configure_firewall_zone:
   firewalld.present:
     - require:
       - pkg: firewalld
-      - firewalld: webserver
     - name: public
     - services:
-      - webserver
+      - http
+      - https

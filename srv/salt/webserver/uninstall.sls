@@ -6,11 +6,15 @@ remove_html_file:
   file.absent:
     - name: /var/www/html/index.html
 
-unconfigure_firewall:
+unconfigure_firewall_http:
   module.run:
     - firewalld.remove_service:
-      - service: webserver
+      - service: http
       - zone: public
-    - firewalld.delete_service:
-      - name: webserver
+
+unconfigure_firewall_https:
+  module.run:
+    - firewalld.remove_service:
+      - service: https
+      - zone: public
 
