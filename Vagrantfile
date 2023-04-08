@@ -29,7 +29,7 @@ fileserver_backend:
   - gitfs
 gitfs_provider: pygit2
 gitfs_update_interval: 60
-gitfs_base: gitfs
+gitfs_base: main
 gitfs_remotes:
   - https://github.com/jbowdre/vagrant-saltlab.git:
     - root: salt_content/salt
