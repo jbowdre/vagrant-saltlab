@@ -13,23 +13,34 @@ Vagrant.configure("2") do |config|
     salt.vm.provider :libvirt do |libvirt|
       libvirt.memory = 1024
     end
-    salt.vm.synced_folder 'srv', '/srv', type: 'rsync'
+    # salt.vm.synced_folder 'srv', '/srv', type: 'rsync'
     salt.vm.provision "shell", inline: <<-SHELL
       apt-get update
-      apt-get install curl vim -y
+      apt-get install curl vim python3-pygit2 -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       sh bootstrap-salt.sh -M -X -U
       cat << EOF > /etc/salt/master.d/lab.conf
-auto_accept: True
+auto_accept:
 file_roots:
   base:
-    - /srv/salt
-pillar_roots:
-  base:
-    - /srv/pillar
+    - /srv/
+fileserver_backend:
+  - roots
+  - gitfs
+gitfs_provider: pygit2
+gitfs_update_interval: 60
+gitfs_base: main
+gitfs_remotes:
+  - https://github.com/jbowdre/vagrant-saltlab.git:
+    - root: salt_content/salt
+    - mountpoint: salt://
+ext_pillar:
+  - git:
+    - main https://github.com/jbowdre/vagrant-saltlab.git:
+      - root: pillar
 reactor:
   - 'salt/minion/*/start':
-    - /srv/reactor/sync_grains.sls
+    - salt://_reactor/sync_grains.sls
 EOF
       systemctl start salt-master
       systemctl start salt-minion
