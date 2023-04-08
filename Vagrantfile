@@ -37,7 +37,8 @@ gitfs_remotes:
 ext_pillar:
   - git:
     - main https://github.com/jbowdre/vagrant-saltlab.git:
-      - root: pillar
+      - root: salt_content/pillar
+      - env: base
 reactor:
   - 'salt/minion/*/start':
     - salt://_reactor/sync_grains.sls
