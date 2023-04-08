@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       sh bootstrap-salt.sh -M -X -U
       cat << EOF > /etc/salt/master.d/lab.conf
-auto_accept:
+auto_accept: True
 file_roots:
   base:
     - /srv/
