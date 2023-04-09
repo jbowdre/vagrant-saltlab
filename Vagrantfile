@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Salt lab environment with one master and four minions
+# Salt lab environment with one master and various minions
 
 Vagrant.configure("2") do |config|
   config.nfs.verify_installed = false
@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
     salt.vm.provider :libvirt do |libvirt|
       libvirt.memory = 1024
     end
-    # salt.vm.synced_folder 'srv', '/srv', type: 'rsync'
+    salt.vm.synced_folder 'salt_content/local', '/srv', type: 'rsync'
     salt.vm.provision "shell", inline: <<-SHELL
       apt-get update
       apt-get install curl vim python3-pygit2 -y
@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
 auto_accept: True
 file_roots:
   base:
-    - /srv/
+    - /srv/salt
 fileserver_backend:
   - roots
   - gitfs
@@ -32,12 +32,15 @@ gitfs_update_interval: 60
 gitfs_base: main
 gitfs_remotes:
   - https://github.com/jbowdre/vagrant-saltlab.git:
-    - root: salt_content/salt
+    - root: salt_content/gitfs/salt
     - mountpoint: salt://
+pillar_roots:
+    base:
+      - /srv/pillar
 ext_pillar:
   - git:
     - main https://github.com/jbowdre/vagrant-saltlab.git:
-      - root: salt_content/pillar
+      - root: salt_content/gitfs/pillar
       - env: base
 reactor:
   - 'salt/minion/*/start':
