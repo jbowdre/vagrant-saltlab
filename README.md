@@ -5,7 +5,9 @@ Using Vagrant to run a portable [Salt](https://saltproject.io/) lab environment 
 To make it easier to deploy, test, break, tear down, and redeploy the environment:
 1. The Salt master blindly auto-accepts all minion keys.
 2. The minions register the `roles:saltlab` grain to aid in targeting.
-3. The contents of `srv/` get `rsync`ed to `/srv/` when the master starts up. *Note that this is a one-way `rsync` from host to VM (and not the other way around), so make sure to write your Salt content on the host and use `vagrant rsync` to push changes into the VM.*
+3. The master uses `gitfs` to pull the Salt content from this very Github repo.
+4. Additionally, the contents of `salt_content/local` get `rsync`ed to `/srv/` when the master starts up to make it easier to write/test Salt content locally. This is a one-way `rsync` from host to VM (and not the other way around), so make sure to write your Salt content on the host and use `vagrant rsync` to push changes into the VM.
+
 
 ## Usage
 
@@ -68,6 +70,24 @@ minion01:
     True
 minion04:
     True
+```
+
+And confirm that the local and remote content has been successfully merged into the `salt://` file system:
+```shell
+vagrant@salt:~$ sudo salt-run fileserver.file_list
+- _reactor/sync_grains.sls    # gitfs
+- acg/.gitkeep                # local
+- acg/neofetch/init.sls       # local
+- acg/neofetch/uninstall.sls  # local
+- acg/top.sls                 # local
+- top.sls                     # gitfs
+- users/init.sls              # gitfs
+- vim/init.sls                # gitfs
+- vim/uninstall.sls           # gitfs
+- vim/vimrc                   # gitfs
+- webserver/index.html        # gitfs
+- webserver/init.sls          # gitfs
+- webserver/uninstall.sls     # gitfs
 ```
 
 Happy Salting!
