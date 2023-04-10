@@ -24,6 +24,8 @@ auto_accept: True
 file_roots:
   base:
     - /srv/salt
+  acg:
+    - /srv/salt/acg
 fileserver_backend:
   - roots
   - gitfs
