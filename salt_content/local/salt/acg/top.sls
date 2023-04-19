@@ -1,4 +1,4 @@
 acg:
-  'roles:acglab':
+  'os:Ubuntu':
     - match: grain
-    - neofetch
+    - users
