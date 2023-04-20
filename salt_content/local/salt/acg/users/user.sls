@@ -1,3 +1,5 @@
+{% from "users/map.jinja" import users  with context %}
+
 create_user_jbyers:
   user.present:
     - name: jbyers
@@ -5,7 +7,7 @@ create_user_jbyers:
     - shell: /bin/bash
     - home: /home/jbyers
     - groups:
-      - sudo
+      - {{ users.sudo_group }}
       - qa
     - require:
       - group: qa
