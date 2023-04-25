@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
       apt-get update
       apt-get install curl vim python3-pygit2 -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -M -X -U
+      sh bootstrap-salt.sh -M -X -U stable 3005
       cat << EOF > /etc/salt/master.d/lab.conf
 auto_accept: True
 file_roots:
@@ -62,7 +62,7 @@ EOF
       apt-get update
       apt-get install curl -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -A 192.168.100.120 -U
+      sh bootstrap-salt.sh -A 192.168.100.120 -U stable 3005
       cat << EOF > /etc/salt/minion.d/grains.conf
 grains:
   roles:
@@ -79,7 +79,7 @@ EOF
       apt-get update
       apt-get install curl -y
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -A 192.168.100.120 -U
+      sh bootstrap-salt.sh -A 192.168.100.120 -U stable 3005
       cat << EOF > /etc/salt/minion.d/grains.conf
 grains:
   roles:
@@ -102,7 +102,7 @@ EOF
       echo "Proceeding!"
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
       # workaround for EL > 9 (https://github.com/saltstack/salt-bootstrap/issues/1903)
-      sh bootstrap-salt.sh -A 192.168.100.120 -U -P -x python3 onedir
+      sh bootstrap-salt.sh -A 192.168.100.120 -U -P -x python3 onedir 3005
       systemctl enable salt-minion
       cat << EOF > /etc/salt/minion.d/grains.conf
 grains:
@@ -124,7 +124,7 @@ EOF
       done
       echo "Proceeding!"
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -A 192.168.100.120 -U
+      sh bootstrap-salt.sh -A 192.168.100.120 -U stable 3005
       cat << EOF > /etc/salt/minion.d/grains.conf
 grains:
   roles:
