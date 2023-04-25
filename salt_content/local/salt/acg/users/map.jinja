@@ -1,8 +1,0 @@
-{% set users = salt['grains.filter_by']({
-  'Debian': {
-    'sudo_group': 'sudo',
-  },
-  'RedHat': {
-    'sudo_group': 'wheel',
-  },
-}) %}

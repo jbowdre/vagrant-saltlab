@@ -134,44 +134,4 @@ EOF
       systemctl restart salt-minion
     SHELL
   end
-  config.vm.define "app01" do |app01|
-    app01.vm.box = "peru/ubuntu-20.04-server-amd64"
-    app01.vm.hostname = "app01"
-    app01.vm.network "private_network", ip: "192.168.100.131"
-    app01.vm.provision "shell", inline: <<-SHELL
-      apt-get update
-      apt-get install curl -y
-      curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      sh bootstrap-salt.sh -A 192.168.100.120 -U
-      cat << EOF > /etc/salt/minion.d/grains.conf
-grains:
-  roles:
-    - acglab
-EOF
-      systemctl restart salt-minion
-    SHELL
-  end
-  config.vm.define "db-users" do |dbusers|
-    dbusers.vm.box = "generic/rocky9"
-    dbusers.vm.hostname = "db-users"
-    dbusers.vm.network "private_network", ip: "192.168.100.132"
-    dbusers.vm.provision "shell", inline: <<-SHELL
-      echo -n "> Waiting for network..."
-      while ! host bootstrap.saltproject.io >/dev/null; do
-        echo -n "."
-        sleep 1
-      done
-      echo "Proceeding!"
-      curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
-      # workaround for EL > 9 (https://github.com/saltstack/salt-bootstrap/issues/1903)
-      sh bootstrap-salt.sh -A 192.168.100.120 -U -P -x python3 onedir
-      systemctl enable salt-minion
-      cat << EOF > /etc/salt/minion.d/grains.conf
-grains:
-  roles:
-    - acglab
-EOF
-      systemctl restart salt-minion
-    SHELL
-  end
 end
