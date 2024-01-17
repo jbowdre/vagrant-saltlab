@@ -1,6 +1,6 @@
 # vagrant-saltlab
 
-Using Vagrant to run a portable [Salt](https://saltproject.io/) lab environment [on my Chromebook](https://www.virtuallypotato.com/create-vms-chromebook-hashicorp-vagrant/). The included Vagrantfile spawns a environment with a single Salt Master (named `salt`) and four Salt Minions (named `minion##`) running a few different common Linux distributions for learning, testing, and development. It leverages the `libvirt` provider to interact with native Linux virtualization, and has a few tweaks to work around limitations imposed by running this all within ChromeOS's LXC-based [Linux development environment](https://support.google.com/chromebook/answer/9145439).
+Using Vagrant to run a portable [Salt](https://saltproject.io/) lab environment [on my Chromebook](https://runtimeterror.dev/create-vms-chromebook-hashicorp-vagrant/). The included Vagrantfile spawns a environment with a single Salt Master (named `salt`) and four Salt Minions (named `minion##`) running a few different common Linux distributions for learning, testing, and development. It leverages the `libvirt` provider to interact with native Linux virtualization, and has a few tweaks to work around limitations imposed by running this all within ChromeOS's LXC-based [Linux development environment](https://support.google.com/chromebook/answer/9145439).
 
 To make it easier to deploy, test, break, tear down, and redeploy the environment:
 1. The Salt master blindly auto-accepts all minion keys.
