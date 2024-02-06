@@ -3,6 +3,10 @@
 
 # Salt lab environment with one master and various minions
 
+# hardware specs
+CPU_COUNT = 2
+MEMORY_MB = 1024
+
 Vagrant.configure("2") do |config|
   config.nfs.verify_installed = false
   config.vm.synced_folder ".", "/vagrant", disabled: true
@@ -13,7 +17,8 @@ Vagrant.configure("2") do |config|
       :ip => "192.168.100.120",
       :libvirt__dhcp_enabled => false
     salt.vm.provider :libvirt do |libvirt|
-      libvirt.memory = 1024
+      libvirt.cpus = CPU_COUNT
+      libvirt.memory = MEMORY_MB
     end
     salt.vm.synced_folder 'salt_content/local', '/srv', type: 'rsync'
     salt.vm.provision "shell", inline: <<-SHELL
@@ -64,7 +69,8 @@ EOF
       :ip => "192.168.100.121",
       :libvirt__dhcp_enabled => false
     minion01.vm.provider :libvirt do |libvirt|
-      libvirt.memory = 1024
+      libvirt.cpus = CPU_COUNT
+      libvirt.memory = MEMORY_MB
     end
     minion01.vm.provision "shell", inline: <<-SHELL
       apt-get update
@@ -86,7 +92,8 @@ EOF
       :ip => "192.168.100.122",
       :libvirt__dhcp_enabled => false
     minion02.vm.provider :libvirt do |libvirt|
-      libvirt.memory = 1024
+      libvirt.cpus = CPU_COUNT
+      libvirt.memory = MEMORY_MB
     end
     minion02.vm.provision "shell", inline: <<-SHELL
       apt-get update
@@ -109,7 +116,8 @@ EOF
       :ip => "192.168.100.123",
       :libvirt__dhcp_enabled => false
     minion03.vm.provider :libvirt do |libvirt|
-      libvirt.memory = 1024
+      libvirt.cpus = CPU_COUNT
+      libvirt.memory = MEMORY_MB
     end
     minion03.vm.provision "shell", inline: <<-SHELL
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
@@ -130,7 +138,8 @@ EOF
       :ip => "192.168.100.124",
       :libvirt__dhcp_enabled => false
     minion04.vm.provider :libvirt do |libvirt|
-      libvirt.memory = 1024
+      libvirt.cpus = CPU_COUNT
+      libvirt.memory = MEMORY_MB
     end
     minion04.vm.provision "shell", inline: <<-SHELL
       curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
