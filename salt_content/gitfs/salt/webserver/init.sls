@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 install_apache:
   pkg.installed:
     - name: {{ pillar['pkgs']['apache'] }}

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 {% if grains['os_family'] == 'RedHat' %}
 install_epel_repo:
   pkg.installed:

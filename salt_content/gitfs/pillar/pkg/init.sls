@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 pkgs:
   {% if grains['os_family'] == 'RedHat' %}
   apache: httpd

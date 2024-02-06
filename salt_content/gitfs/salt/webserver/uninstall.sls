@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 uninstall_apache:
   pkg.removed:
     - name: {{ pillar['pkgs']['apache'] }}
