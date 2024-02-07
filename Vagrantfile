@@ -29,8 +29,8 @@ Vagrant.configure("2") do |config|
       salt-pip install pygit2
       cat << EOF > /etc/salt/master.d/lab.conf
 auto_accept: True
-file_ignore_glob:
-    - '\.git*'
+file_ignore_regex:
+    - '/*\.gitkeep'
 file_roots:
   base:
     - /srv/salt
