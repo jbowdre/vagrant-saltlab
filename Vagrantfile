@@ -45,6 +45,10 @@ gitfs_remotes:
   - https://github.com/jbowdre/vagrant-saltlab.git:
     - root: salt_content/gitfs/salt
     - mountpoint: salt://
+  # Uncomment the following to use the salt-content repo
+  # - https://github.com/jbowdre/salt-content.git:
+  #   - root: salt
+  #   -mountpoint: salt://
 pillar_roots:
     base:
       - /srv/pillar
