@@ -1,5 +1,8 @@
 # vagrant-saltlab
 
+> [!NOTE]
+> This project has [moved](https://git.vim.wtf/wq/vagrant-saltlab).
+
 Using [HashiCorp Vagrant](https://github.com/hashicorp/vagrant) to run a portable, redeployable [Salt](https://saltproject.io/) lab environment [on my Chromebook](https://runtimeterror.dev/create-vms-chromebook-hashicorp-vagrant/).
 
 The included Vagrantfile spawns a environment with a single Salt Master (named `salt`) and four Salt Minions (named `minion##`) running different common Linux distributions for learning, testing, and development. It leverages the [`libvirt` provider](https://github.com/vagrant-libvirt/vagrant-libvirt) to interact with native Linux virtualization, and has a few tweaks to work around limitations imposed by running this all within ChromeOS's LXC-based [Linux development environment](https://support.google.com/chromebook/answer/9145439).
